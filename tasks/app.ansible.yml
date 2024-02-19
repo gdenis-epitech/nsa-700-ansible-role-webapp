@@ -3,10 +3,16 @@
     src: files/app/
     dest: /app/
     directory_mode:
+    owner: ansible
+    group: ansible
     mode: "0755"
 
 - name: "Install app packages"
-  community.general.npm:
-    path: /app
+  ansible.builtin.shell: >
+    npm install
+  args:
+    chdir: /app
+  register: out
+  changed_when: out.rc != 0
   become: true
   become_user: ansible
