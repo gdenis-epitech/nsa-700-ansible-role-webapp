@@ -7,10 +7,7 @@
     update_cache: true
     force: true
     package:
-      - ca-certificates
       - apt-transport-https
-      - software-properties-common
-      - lsb-release
 
 - name: "Download NVM install script"
   ansible.builtin.get_url:
