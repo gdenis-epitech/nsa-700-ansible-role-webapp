@@ -48,11 +48,11 @@
   become: false
   become_user: ansible
 
-- name: "Serve app"
+- name: "Build app"
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
-      nvm exec {{ nodejs_version }} npm run start"
+      nvm exec {{ nodejs_version }} npm run build"
     chdir: /app
   register: out
   changed_when: out.rc != 0
