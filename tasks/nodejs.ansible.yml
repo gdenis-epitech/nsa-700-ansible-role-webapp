@@ -9,6 +9,7 @@
     package:
       - ca-certificates
       - apt-transport-https
+      - nodejs-legacy
 
 - name: "Install NVM"
   ansible.builtin.shell: >
