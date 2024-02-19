@@ -12,10 +12,10 @@
 
 - name: "Install NVM"
   ansible.builtin.shell: >
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-    register: out
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   args:
-    chdir: /home/ansible
+    chdir: /home/ansible/
+  register: out
   changed_when: out.rc != 0
 
 - name: "Install NodeJS"
