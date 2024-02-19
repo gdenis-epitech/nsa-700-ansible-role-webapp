@@ -30,6 +30,6 @@
 
 - name: "Symlink node & npm executables"
   ansible.builtin.shell: >
-    sudo ln -sf "$(which node)" /usr/local/bin && sudo ln -sf "$(which npm)" /usr/local/bin
+    sudo ln -sf "$(which node)" /usr/local/bin/ && sudo ln -sf "$(which npm)" /usr/local/bin/
   register: out
   changed_when: out.rc != 0
