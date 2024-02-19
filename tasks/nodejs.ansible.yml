@@ -38,6 +38,15 @@
     version: develop
     force: true
 
+- name: "Set permissions on application"
+  become: true
+  ansible.builtin.file:
+    path: /var/www/app
+    recurse: true
+    owner: ansible
+    group: ansible
+    mode: "0644"
+
 - name: "Install app packages"
   become: false
   become_user: ansible
