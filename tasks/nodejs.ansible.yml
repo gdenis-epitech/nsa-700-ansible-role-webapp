@@ -27,12 +27,6 @@
     path: "/home/ansible/install-nvm.sh"
     state: absent
 
-- name: "Update bashrc"
-  ansible.builtin.command:
-    cmd: "source /home/ansible/.bashrc"
-  register: out
-  changed_when: out.rc != 0
-
 - name: "Install NodeJS"
   ansible.builtin.command:
     cmd: "nvm install {{ nodejs_version }}"
