@@ -1,6 +1,6 @@
 ---
 - name: "Load NodeJS variables"
-  ansible.builtin.include_vars: nodejs.vars.ansible.yaml
+  ansible.builtin.include_vars: nodejs.vars.ansible.yml
 
 - name: "Install package dependencies"
   ansible.builtin.apt:
