@@ -1,0 +1,12 @@
+- name: "Copy app to server"
+  ansible.builtin.copy:
+    src: files/app/
+    dest: /var/www/app/
+    directory_mode:
+    owner: www-data
+    group: www-data
+    mode: "0644"
+
+- name: "Install app packages"
+  community.general.npm:
+    path: /var/www/app/

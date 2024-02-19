@@ -1,2 +1,3 @@
 ---
 - ansible.builtin.include_tasks: nodejs.ansible.yml
+- ansible.builtin.include_tasks: app.ansible.yml
