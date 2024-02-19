@@ -12,7 +12,11 @@
     executable: /bin/bash
   register: out
   changed_when: out.rc != 0
+  become: true
+  become_user: ansible
 
 - name: "Install app packages"
   community.general.npm:
     path: /app
+  become: true
+  become_user: ansible
