@@ -27,3 +27,17 @@
   changed_when: out.rc != 0
   become: true
   become_user: ansible
+
+- name: "Add npm to $PATH"
+  ansible.builtin.file:
+    src: "/home/ansible/.nvm/versions/node/v10.13.0/bin/npm"
+    dest: "/usr/local/bin/npm"
+    state: link
+  become: true
+
+- name: "Add node to $PATH"
+  ansible.builtin.file:
+    src: "/home/ansible/.nvm/versions/node/v10.13.0/bin/node"
+    dest: "/usr/local/bin/npm"
+    state: link
+  become: true
