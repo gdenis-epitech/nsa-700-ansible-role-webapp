@@ -1,4 +1,5 @@
 - name: "Install nginx"
+  become: true
   ansible.builtin.apt:
     update_cache: true
     force: true
@@ -6,6 +7,7 @@
       - nginx
 
 - name: "Copy app to www-data directory"
+  become: true
   ansible.builtin.copy:
     remote_src: true
     src: /app/dist/front/
@@ -15,9 +17,12 @@
     mode: "0755"
 
 - name: "Update nginx configuration for angular"
+  become: true
   ansible.builtin.copy:
     src: files/app.nginx
     dest: /etc/nginx/sites-available/app
+    owner: www-data
+    group: www-data
     mode: "0755"
 
 - name: "Symlink from sites-available to sites-enabled"
@@ -26,6 +31,7 @@
     dest: /etc/nginx/sites-enabled/app
     owner: www-data
     group: www-data
+    mode: "0755"
     state: link
 
 - name: "Validate nginx configuration"
@@ -33,6 +39,13 @@
     cmd: "nginx -t"
   register: out
   changed_when: out.rc != 0
+
+- name: "Add ansible user to www-data group"
+  become: true
+  ansible.builtin.user:
+    name: ansible
+    group: www-data
+    state: present
 
 - name: "Restart nginx with configuration updates"
   ansible.builtin.service:

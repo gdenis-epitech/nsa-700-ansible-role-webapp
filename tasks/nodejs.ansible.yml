@@ -3,41 +3,44 @@
   ansible.builtin.include_vars: nodejs.vars.ansible.yml
 
 - name: "Install package dependencies"
+  become: true
   ansible.builtin.apt:
     update_cache: true
     force: true
     package:
       - ca-certificates
       - apt-transport-https
+      - git
 
 - name: "Install NVM"
+  become: false
+  become_user: ansible
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   args:
     creates: "/home/ansible/.nvm/nvm.sh"
-  become: false
-  become_user: ansible
 
 - name: "Install NodeJS"
+  become: false
+  become_user: ansible
   ansible.builtin.shell: >
     source /home/ansible/.nvm/nvm.sh && nvm install {{ nodejs_version }}
   args:
     executable: /bin/bash
   register: out
   changed_when: out.rc != 0
-  become: false
-  become_user: ansible
 
-- name: "Copy app to server"
-  ansible.builtin.copy:
-    src: files/app/
-    dest: /app/
-    directory_mode:
-    owner: ansible
-    group: ansible
-    mode: "0755"
+- name: "Obtain app from remote repository"
+  become: true
+  ansible.builtin.git:
+    repo: "http://{{ app_git_host }}:{{ app_git_port }}/nsa-700/angular-app.git"
+    dest: /app
+    version: develop
+    force: true
 
 - name: "Install app packages"
+  become: false
+  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
@@ -45,10 +48,10 @@
     chdir: /app
   register: out
   changed_when: out.rc != 0
-  become: false
-  become_user: ansible
 
 - name: "Build app"
+  become: false
+  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
@@ -56,5 +59,3 @@
     chdir: /app
   register: out
   changed_when: out.rc != 0
-  become: false
-  become_user: ansible
