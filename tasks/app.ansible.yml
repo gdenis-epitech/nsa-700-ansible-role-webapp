@@ -1,10 +1,8 @@
 - name: "Copy app to server"
   ansible.builtin.copy:
     src: files/app/
-    dest: /var/www/app/
+    dest: app/
     directory_mode:
-    owner: ansible
-    group: ansible
     mode: "0755"
 
 - name: "Install app packages"
