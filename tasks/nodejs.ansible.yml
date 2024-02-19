@@ -45,11 +45,10 @@
     recurse: true
     owner: root
     group: root
-    mode: "0644"
+    mode: "0777"
 
 - name: "Install app packages"
   become: true
-  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
@@ -60,7 +59,6 @@
 
 - name: "Build app"
   become: true
-  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
