@@ -26,3 +26,11 @@
   ansible.builtin.file:
     path: "/home/ansible/install-nvm.sh"
     state: absent
+
+- name: "Install NodeJS"
+  ansible.builtin.shell: >
+    source /root/.nvm/nvm.sh && nvm install 10.13.0
+  args:
+    executable: /bin/bash
+  register: out
+  changed_when: out.rc != 0
