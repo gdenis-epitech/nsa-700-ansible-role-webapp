@@ -9,7 +9,7 @@
 
 - name: "Install app packages"
   ansible.builtin.shell: >
-    npm install
+    $(which npm) install
   args:
     chdir: /app
   register: out
