@@ -19,6 +19,7 @@
 - name: "Run NVM install script"
   ansible.builtin.command:
     cmd: "/home/ansible/install-nvm.sh"
+    chdir: /home/ansible
   register: out
   changed_when: out.rc != 0
 
@@ -29,7 +30,7 @@
 
 - name: "Install NodeJS"
   ansible.builtin.shell: >
-    source /root/.nvm/nvm.sh && nvm install 10.13.0
+    source /home/ansible/.nvm/nvm.sh && nvm install 10.13.0
   args:
     executable: /bin/bash
   register: out

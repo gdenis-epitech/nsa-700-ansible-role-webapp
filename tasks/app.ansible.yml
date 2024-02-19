@@ -1,5 +1,4 @@
 - name: "Copy app to server"
-  become: true
   ansible.builtin.copy:
     src: files/app/
     dest: /var/www/app/
@@ -9,6 +8,5 @@
     mode: "0644"
 
 - name: "Install app packages"
-  become: true
   community.general.npm:
     path: /var/www/app/
