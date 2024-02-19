@@ -11,6 +11,7 @@
       - ca-certificates
       - apt-transport-https
       - git
+      - acl
 
 - name: "Install NVM"
   become: false
@@ -39,16 +40,15 @@
     force: true
 
 - name: "Set permissions on application"
-  become: true
   ansible.builtin.file:
     path: /app
     recurse: true
-    owner: root
-    group: root
-    mode: "0777"
+    owner: ansible
+    mode: "0644"
 
 - name: "Install app packages"
-  become: true
+  become: false
+  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
@@ -58,7 +58,8 @@
   changed_when: out.rc != 0
 
 - name: "Build app"
-  become: true
+  become: false
+  become_user: ansible
   ansible.builtin.command:
     cmd: >
       bash -c "source /home/ansible/.nvm/nvm.sh &&
