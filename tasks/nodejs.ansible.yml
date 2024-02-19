@@ -43,12 +43,12 @@
   ansible.builtin.file:
     path: /app
     recurse: true
-    owner: ansible
-    group: ansible
+    owner: root
+    group: root
     mode: "0644"
 
 - name: "Install app packages"
-  become: false
+  become: true
   become_user: ansible
   ansible.builtin.command:
     cmd: >
@@ -59,7 +59,7 @@
   changed_when: out.rc != 0
 
 - name: "Build app"
-  become: false
+  become: true
   become_user: ansible
   ansible.builtin.command:
     cmd: >
