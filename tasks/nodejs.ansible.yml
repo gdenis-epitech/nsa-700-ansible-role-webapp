@@ -14,9 +14,8 @@
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   args:
-    chdir: /home/ansible/
-  register: out
-  changed_when: out.rc != 0
+    creates: "/home/ansible/.nvm/nvm.sh"
+    executable: /bin/bash
 
 - name: "Install NodeJS"
   ansible.builtin.shell: >
