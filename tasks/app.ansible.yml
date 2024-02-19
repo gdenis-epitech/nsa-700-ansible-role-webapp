@@ -9,9 +9,8 @@
 
 - name: "Install app packages"
   ansible.builtin.shell: >
+    cd /app && \
     /home/ansible/.nvm/versions/node/v10.13.0/bin/npm install
-  args:
-    chdir: /app
   register: out
   changed_when: out.rc != 0
   become: true
