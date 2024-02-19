@@ -3,15 +3,20 @@
     src: files/app/
     dest: /app/
     directory_mode:
-    owner: ansible
-    group: ansible
     mode: "0755"
 
-- name: "Install app packages"
+- name: "Ensure NodeJS in $PATH"
   ansible.builtin.shell: >
-    cd /app && \
-    /home/ansible/.nvm/versions/node/v10.13.0/bin/npm install
+    source ~/.bashrc
+  args:
+    executable: /bin/bash
   register: out
   changed_when: out.rc != 0
+  become: true
+  become_user: ansible
+
+- name: "Install app packages"
+  community.general.npm:
+    path: /app
   become: true
   become_user: ansible
