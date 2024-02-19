@@ -15,7 +15,7 @@
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   args:
     creates: "/home/ansible/.nvm/nvm.sh"
-  become: true
+  become: false
   become_user: ansible
 
 - name: "Install NodeJS"
@@ -25,5 +25,21 @@
     executable: /bin/bash
   register: out
   changed_when: out.rc != 0
-  become: true
+  become: false
+  become_user: ansible
+
+- name: "Copy app to server"
+  ansible.builtin.copy:
+    src: files/app/
+    dest: /app/
+    directory_mode:
+    owner: ansible
+    group: ansible
+    mode: "0755"
+
+- name: "Install app packages"
+  community.general.npm:
+    path: /app
+    state: present
+  become: false
   become_user: ansible
