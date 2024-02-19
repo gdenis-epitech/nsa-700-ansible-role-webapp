@@ -5,18 +5,14 @@
     directory_mode:
     mode: "0755"
 
-- name: "Ensure NodeJS in $PATH"
+- name: "Ensure node && npm in $PATH"
   ansible.builtin.shell: >
-    source ~/.bashrc
+    source /home/ansible/.nvm/nvm.sh
   args:
     executable: /bin/bash
   register: out
   changed_when: out.rc != 0
-  become: true
-  become_user: ansible
 
 - name: "Install app packages"
   community.general.npm:
     path: /app
-  become: true
-  become_user: ansible
