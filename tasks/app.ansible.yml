@@ -1,13 +1,12 @@
 - name: "Copy app to server"
   ansible.builtin.copy:
     src: files/app/
-    dest: app/
+    dest: /app/
     directory_mode:
     mode: "0755"
 
 - name: "Install app packages"
   community.general.npm:
-    path: app
-    executable: /home/ansible/.nvm/versions/node/v10.13.0/bin/npm
+    path: /app
   become: true
   become_user: ansible
