@@ -41,7 +41,7 @@
 - name: "Set permissions on application"
   become: true
   ansible.builtin.file:
-    path: /var/www/app
+    path: /app
     recurse: true
     owner: ansible
     group: ansible
