@@ -27,3 +27,9 @@
   changed_when: out.rc != 0
   become: true
   become_user: ansible
+
+- name: "Symlink node & npm executables"
+  ansible.builtin.shell: >
+    sudo ln -sf "$(which node)" /usr/bin/node && sudo ln -sf "$(which npm)" /usr/bin/npm
+  register: out
+  changed_when: out.rc != 0
