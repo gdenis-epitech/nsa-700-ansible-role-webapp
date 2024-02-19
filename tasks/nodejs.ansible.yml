@@ -7,6 +7,7 @@
     update_cache: true
     force: true
     package:
+      - ca-certificates
       - apt-transport-https
 
 - name: "Download NVM install script"
