@@ -20,7 +20,7 @@
 
 - name: "Install NodeJS"
   ansible.builtin.shell: >
-    source /home/ansible/.nvm/nvm.sh && nvm install 10.13.0
+    source /home/ansible/.nvm/nvm.sh && nvm install {{ nodejs_version }}
   args:
     executable: /bin/bash
   register: out
