@@ -7,19 +7,9 @@
     group: ansible
     mode: "0755"
 
-- name: "Ensure node && npm in $PATH"
-  ansible.builtin.shell: >
-    source /home/ansible/.bashrc
-  args:
-    executable: /bin/bash
-  register: out
-  changed_when: out.rc != 0
+- name: "Install app packages"
+  community.general.npm:
+    path: /app
+    state: present
   become: true
   become_user: ansible
-
-- name: "Install app packages"
-  ansible.builtin.command:
-    cmd: npm install
-    chdir: /app
-  register: out
-  changed_when: out.rc != 0
