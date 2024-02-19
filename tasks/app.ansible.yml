@@ -9,7 +9,7 @@
 
 - name: "Ensure node && npm in $PATH"
   ansible.builtin.shell: >
-    source /home/ansible/.nvm/nvm.sh
+    source /home/ansible/.bashrc
   args:
     executable: /bin/bash
   register: out
@@ -18,8 +18,12 @@
   become_user: ansible
 
 - name: "Install app packages"
-  community.general.npm:
-    path: /app
-    executable: /home/ansible/.nvm/versions/node/v10.13.0/bin/npm
+  ansible.builtin.shell: >
+    npm install
+  args:
+    chdir: /app
+    executable: /bin/bash
+  register: out
+  changed_when: out.rc != 0
   become: true
   become_user: ansible
