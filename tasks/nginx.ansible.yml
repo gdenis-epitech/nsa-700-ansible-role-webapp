@@ -8,7 +8,7 @@
 - name: "Copy app to www-data directory"
   ansible.builtin.copy:
     remote_src: true
-    src: /app/dist/front
+    src: /app/dist/front/
     dest: /var/www/app/
     owner: www-data
     group: www-data
