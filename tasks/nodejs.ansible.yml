@@ -45,7 +45,8 @@
     path: /app
     recurse: true
     owner: ansible
-    mode: "0644"
+    group: ansible
+    mode: "0777"
 
 - name: "Install app packages"
   become: false
