@@ -3,8 +3,8 @@
     src: files/app/
     dest: /var/www/app/
     directory_mode:
-    owner: www-data
-    group: www-data
+    owner: ansible
+    group: ansible
     mode: "0644"
 
 - name: "Install app packages"
