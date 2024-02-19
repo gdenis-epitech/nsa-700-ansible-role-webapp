@@ -1,0 +1,36 @@
+---
+- name: "Load NodeJS variables"
+  ansible.builtin.include_vars: nodejs.vars.ansible.yaml
+
+- name: "Install package dependencies"
+  ansible.builtin.apt:
+    update_cache: true
+    force: true
+    package:
+      - ca-certificates
+      - apt-transport-https
+      - software-properties-common
+      - lsb-release
+
+- name: "Download NVM install script"
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh
+    dest: "/home/ansible/install-nvm.sh"
+    mode: "0755"
+
+- name: "Run NVM install script"
+  ansible.builtin.command:
+    cmd: "/home/ansible/install-nvm.sh"
+  register: out
+  changed_when: out.rc != 0
+
+- name: "Remove NVM install script"
+  ansible.builtin.file:
+    path: "/home/ansible/install-nvm.sh"
+    state: absent
+
+- name: "Install NodeJS"
+  ansible.builtin.command:
+    cmd: "nvm install {{ nodejs_version }}"
+  register: out
+  changed_when: out.rc != 0

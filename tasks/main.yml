@@ -1,2 +1,2 @@
 ---
-# tasks file for webapp
+- ansible.builtin.include_tasks: nodejs.ansible.yml
