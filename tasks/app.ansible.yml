@@ -7,7 +7,7 @@
 
 - name: "Install app packages"
   community.general.npm:
-    path: /var/www/app/
+    path: app
     executable: /home/ansible/.nvm/versions/node/v10.13.0/bin/npm
   become: true
   become_user: ansible
