@@ -11,5 +11,6 @@
   community.general.npm:
     path: /app
     state: present
+    executable: npm
   become: true
   become_user: ansible
