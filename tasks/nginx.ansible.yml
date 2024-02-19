@@ -49,6 +49,7 @@
     state: present
 
 - name: "Restart nginx with configuration updates"
+  become: true
   ansible.builtin.service:
     name: nginx
     state: restarted
