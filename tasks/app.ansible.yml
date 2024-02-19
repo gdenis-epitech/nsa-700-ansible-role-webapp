@@ -18,12 +18,8 @@
   become_user: ansible
 
 - name: "Install app packages"
-  ansible.builtin.shell: >
-    npm install
-  args:
+  ansible.builtin.command:
+    cmd: npm install
     chdir: /app
-    executable: /bin/bash
   register: out
   changed_when: out.rc != 0
-  become: true
-  become_user: ansible
