@@ -10,5 +10,6 @@
 - name: "Install app packages"
   community.general.npm:
     path: /var/www/app
+    state: present
   become: true
   become_user: ansible
