@@ -1,0 +1,40 @@
+- name: "Install nginx"
+  ansible.builtin.apt:
+    update_cache: true
+    force: true
+    package:
+      - nginx
+
+- name: "Copy app to www-data directory"
+  ansible.builtin.copy:
+    remote_src: true
+    src: /app
+    dest: /var/www/app
+    owner: www-data
+    group: www-data
+    mode: "0644"
+
+- name: "Update nginx configuration for angular"
+  ansible.builtin.copy:
+    src: files/app.nginx
+    dest: /etc/nginx/sites-available/app
+    mode: "0755"
+
+- name: "Symlink from sites-available to sites-enabled"
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/app
+    dest: /etc/nginx/sites-enabled/app
+    owner: www-data
+    group: www-data
+    state: link
+
+- name: "Validate nginx configuration"
+  ansible.builtin.command:
+    cmd: "nginx -t"
+  register: out
+  changed_when: out.rc != 0
+
+- name: "Restart nginx with configuration updates"
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
