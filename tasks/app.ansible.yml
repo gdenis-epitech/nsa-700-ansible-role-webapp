@@ -3,6 +3,8 @@
     src: files/app/
     dest: /app/
     directory_mode:
+    owner: ansible
+    group: ansible
     mode: "0755"
 
 - name: "Ensure node && npm in $PATH"
@@ -19,7 +21,5 @@
   community.general.npm:
     path: /app
     executable: /home/ansible/.nvm/versions/node/v10.13.0/bin/npm
-  environment:
-    NODE_PATH: /home/ansible/.nvm/versions/Node/v10.13.0/bin
   become: true
   become_user: ansible
