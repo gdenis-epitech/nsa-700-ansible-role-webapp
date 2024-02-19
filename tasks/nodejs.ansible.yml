@@ -29,7 +29,7 @@
 
 - name: "Update bashrc"
   ansible.builtin.command:
-    cmd: "source ~/.bashrc"
+    cmd: "source /home/ansible/.bashrc"
   register: out
   changed_when: out.rc != 0
 
