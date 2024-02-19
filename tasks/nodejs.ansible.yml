@@ -10,23 +10,13 @@
       - ca-certificates
       - apt-transport-https
 
-- name: "Download NVM install script"
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh
-    dest: "/home/ansible/install-nvm.sh"
-    mode: "0755"
-
-- name: "Run NVM install script"
-  ansible.builtin.command:
-    cmd: "/home/ansible/install-nvm.sh"
+- name: "Install NVM"
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    register: out
+  args:
     chdir: /home/ansible
-  register: out
   changed_when: out.rc != 0
-
-- name: "Remove NVM install script"
-  ansible.builtin.file:
-    path: "/home/ansible/install-nvm.sh"
-    state: absent
 
 - name: "Install NodeJS"
   ansible.builtin.shell: >
