@@ -1,14 +1,9 @@
-http {
-    include /etc/nginx/mime.types; 
+server {
+    listen 80;
+    server_name 192.168.56.13;
+    root /var/www/app;
 
-    server {        
-        root /usr/share/nginx/html;
-
-        index index.html;
-
-        # specify the configuration for the '/' location
-        location / {
-            try_files $uri $uri/ /index.html;
-        }
+    location / {
+        try_files $uri $uri/ /index.html;
     }
 }
