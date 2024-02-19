@@ -33,7 +33,7 @@
 - name: "Obtain app from remote repository"
   become: true
   ansible.builtin.git:
-    repo: "http://{{ app_git_host }}:{{ app_git_port }}/nsa-700/angular-app.git"
+    repo: "http://{{ nodejs_app_git_host }}:{{ nodejs_app_git_port }}/nsa-700/angular-app.git"
     dest: /app
     version: develop
     force: true
