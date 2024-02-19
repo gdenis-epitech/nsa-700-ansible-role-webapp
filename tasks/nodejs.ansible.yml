@@ -20,7 +20,7 @@
 
 - name: "Install NodeJS"
   ansible.builtin.shell: >
-    source /home/ansible/.nvm/nvm.sh && nvm install 10.13.0 && nvm use 10.13.0
+    source /home/ansible/.nvm/nvm.sh && nvm install 10.13.0
   args:
     executable: /bin/bash
   register: out
@@ -38,8 +38,12 @@
     mode: "0755"
 
 - name: "Install app packages"
-  community.general.npm:
-    path: /app
-    state: present
+  ansible.builtin.command:
+    cmd: >
+      bash -c "source /home/ansible/.nvm/nvm.sh &&
+      nvm exec {{ nodejs_version }} npm install"
+    chdir: /app
+  register: out
+  changed_when: out.rc != 0
   become: false
   become_user: ansible
