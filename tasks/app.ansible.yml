@@ -3,12 +3,13 @@
     src: files/app/
     dest: /var/www/app/
     directory_mode:
-    owner: www-data
-    group: www-data
+    owner: ansible
+    group: ansible
     mode: "0755"
 
 - name: "Install app packages"
   community.general.npm:
     path: /var/www/app/
+    executable: /home/ansible/.nvm/versions/node/v10.13.0/bin/npm
   become: true
   become_user: ansible
