@@ -47,3 +47,14 @@
   changed_when: out.rc != 0
   become: false
   become_user: ansible
+
+- name: "Serve app"
+  ansible.builtin.command:
+    cmd: >
+      bash -c "source /home/ansible/.nvm/nvm.sh &&
+      nvm exec {{ nodejs_version }} npm run start"
+    chdir: /app
+  register: out
+  changed_when: out.rc != 0
+  become: false
+  become_user: ansible
