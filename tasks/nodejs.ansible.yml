@@ -36,7 +36,7 @@
   ansible.builtin.git:
     repo: "http://{{ nodejs_app_git_host }}:{{ nodejs_app_git_port }}/nsa-700/angular-app.git"
     dest: /app
-    version: main
+    version: develop
     force: true
 
 - name: "Set permissions on application"
